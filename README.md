@@ -9,10 +9,9 @@
 
 
  
-#### Proyecto.
+#### Proyecto
 
 ------------
-
 [![Captura-de-pantalla-2023-10-24-092250.png](https://i.postimg.cc/3JLnbp4Z/Captura-de-pantalla-2023-10-24-092250.png)](https://postimg.cc/N5H6KKxy)
 
 ####  Descripcion
