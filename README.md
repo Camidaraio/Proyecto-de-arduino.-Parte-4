@@ -34,7 +34,7 @@ En la fase final de nuestro proyecto, hemos incorporado un LED y una fotoresiste
 ------------
 
 
-La función principal de este proyecto es operar un visualizador de 7 segmentos mediante un interruptor deslizante conectado a una placa Arduino. Este proyecto tiene dos objetivos clave. En primer lugar, muestra números primos del 0 al 99 y, en segundo lugar, cuando el interruptor se desliza, muestra un contador que va del 0 al 99.
+La función principal de este proyecto es operar un visualizador de 7 segmentos mediante un interruptor deslizante conectado a una placa Arduino. Este proyecto tiene dos objetivos clave. En primer lugar, muestra números hexadecimales del 0 al 99 y, en segundo lugar, cuando el interruptor se desliza, muestra un contador que va del 0 al 99.
 
 Adicionalmente, hemos incorporado un motor que se activa cuando un sensor detecta una temperatura elevada. Cuando esto ocurre, un LED rojo se enciende como indicador de advertencia.
 
@@ -63,16 +63,42 @@ Este proyecto combina diversas funciones para interactuar con varios dispositivo
 
 ```cpp
 
-void printCount(int count) {
-  prendeDigito(APAGADOS);
-  int units = count % 16;
-  int tens = (count / 16) % 16;
-  printDigit(tens);
-  prendeDigito(DECENA);
-  delay(135);
-  prendeDigito(APAGADOS);
-  printDigit(units); 
-  prendeDigito(UNIDAD);
+void loop() {
+  
+  currentSwitchState = digitalRead(4);
+
+  if (currentSwitchState == LOW && lastSwitchState == HIGH) {
+    countDigit = (countDigit + 1)  % 256;
+    printCount(countDigit);
+   
+  } 
+  else 
+  {  
+	countDigit = (countDigit + 1) % 100;
+    printCount2(countDigit);
+  }
+  
+  medida=analogRead(ntc);
+  monitoriza();
+  if (medida>nivel){
+    digitalWrite(led_rojo,HIGH);
+    digitalWrite(motor,HIGH);}
+   else{
+      digitalWrite(led_rojo,LOW);
+      digitalWrite(motor,LOW);
+  } 
+  
+  valor = analogRead(fotoresistencia);
+  Serial.println(valor);
+    delay(500);
+  if (valor>100)
+  {
+    digitalWrite(led_verde,HIGH);
+  }
+  else
+  {
+    digitalWrite(led_verde , LOW);
+  }
   
 }
 ```
